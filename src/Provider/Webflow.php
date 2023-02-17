@@ -104,7 +104,7 @@ class Webflow extends AbstractProvider
 		/** @var array<string,mixed> $response */
 		$response = $this->getParsedResponse($request);
 
-		return $response['did_revoke'] ?? false;
+		return (bool) ($response['did_revoke'] ?? false);
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Webflow extends AbstractProvider
 	 */
 	public function getResourceOwner(AccessToken $token): WebflowResourceOwner
 	{
-		/** @var array<string,string> $response */
+		/** @var array{user:array<string,string>} $response */
 		$response = $this->fetchResourceOwnerDetails($token);
 
 		return $this->createResourceOwner($response, $token);
@@ -201,7 +201,7 @@ class Webflow extends AbstractProvider
 	/**
 	 * Generate a user object from a successful user details request.
 	 *
-	 * @param array<string,string> $response
+	 * @param array{user:array<string,string>} $response
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter.token)
 	 */
 	protected function createResourceOwner(array $response, AccessToken $token): WebflowResourceOwner

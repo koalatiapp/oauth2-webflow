@@ -23,7 +23,7 @@ class WebflowResourceOwner implements ResourceOwnerInterface
 	private string $lastName;
 
 	/**
-	 * @param array<string,string> $response
+	 * @param array{user:array<string,string>} $response
 	 */
 	public function __construct(array $response)
 	{
