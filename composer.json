@@ -1,0 +1,41 @@
+{
+	"name": "koalati/oauth2-webflow",
+	"description": "A Webflow Provider for OAuth2 client library league/oauth2-client",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Émile Perron",
+			"email": "contact@emileperron.com",
+			"homepage": "https://github.com/emileperron"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=8.0",
+		"league/oauth2-client": "^2.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^10.0",
+		"phpmd/phpmd": "^2.13",
+		"phpstan/phpstan": "^1.9",
+		"symplify/easy-coding-standard": "^11.2"
+	},
+	"scripts": {
+		"test": "phpunit -c phpunit.xml",
+		"check": "composer ecs:fix && composer phpmd && composer phpstan",
+		"ecs": "ecs --config=.config/ecs.php",
+		"ecs:fix": "ecs --config=.config/ecs.php --fix",
+		"phpstan": "phpstan analyse src --level=9",
+		"phpmd": "phpmd src text cleancode,codesize,controversial,design,naming,unusedcode"
+	},
+	"autoload": {
+		"psr-4": {
+			"Koalati\\OAuth2\\Client\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Koalati\\Tests\\OAuth2\\Client\\": "tests/"
+		}
+	}
+}
