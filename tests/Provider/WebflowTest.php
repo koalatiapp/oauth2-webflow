@@ -85,7 +85,7 @@ class WebflowTest extends \PHPUnit\Framework\TestCase
 	{
 		/** @var MockObject|ResponseInterface $response */
 		$response = $this->createMock(ResponseInterface::class);
-		$response->method('getBody')->willReturn('{"invalid_grant":1}');
+		$response->method('getBody')->willReturn('{"error":"invalid_grant"}');
 		$response->method('getHeader')->willReturn([
 			'content-type' => 'json',
 		]);

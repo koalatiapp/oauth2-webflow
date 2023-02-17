@@ -182,19 +182,14 @@ class Webflow extends AbstractProvider
 	protected function checkResponse(ResponseInterface $response, $data): void
 	{
 		if ($response->getStatusCode() !== 200) {
-			if (isset($data['unsupported_grant_type'])) {
-				throw new LogicException("'grant_type' should always be specified as the string 'authorization_code'.");
-			}
+			$errorKey = $data['error'] ?? null;
 
-			if (isset($data['invalid_client'])) {
-				throw new WebflowIdentityProviderException('No application found matching the provided credentials.', $response->getStatusCode(), $response);
-			}
-
-			if (isset($data['invalid_grant'])) {
-				throw new WebflowIdentityProviderException("Provided 'code' was invalid", $response->getStatusCode(), $response);
-			}
-
-			throw new WebflowIdentityProviderException('Unexpected response', $response->getStatusCode(), $response);
+			match ($errorKey) {
+				'unsupported_grant_type' => throw new LogicException("'grant_type' should always be specified as the string 'authorization_code'."),
+				'invalid_client' => throw new WebflowIdentityProviderException('No application found matching the provided credentials.', $response->getStatusCode(), $response),
+				'invalid_grant' => throw new WebflowIdentityProviderException("Provided 'code' was invalid", $response->getStatusCode(), $response),
+				default => throw new WebflowIdentityProviderException('Unexpected response', $response->getStatusCode(), $response),
+			};
 		}
 	}
 
