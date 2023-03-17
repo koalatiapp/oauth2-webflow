@@ -119,6 +119,15 @@ try {
 }
 ```
 
+## Webflow API client
+
+This package does not provide any API interactions other than OAuth 2.0 
+authentication.
+
+However, if you need to interact with the Webflow API, we recommend you check 
+out the [`koalati/webflow-api-client`](https://github.com/koalatiapp/webflow-api-client) 
+package.
+
 
 ## Contributing
 

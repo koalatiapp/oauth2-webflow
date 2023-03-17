@@ -20,6 +20,9 @@
 		"phpstan/phpstan": "^1.9",
 		"symplify/easy-coding-standard": "^11.2"
 	},
+	"suggest": {
+        "koalati/webflow-api-client": "Provides an API client to easily interact with the Webflow API."
+    },
 	"scripts": {
 		"test": "phpunit -c phpunit.xml",
 		"check": "composer ecs:fix && composer phpmd && composer phpstan",
