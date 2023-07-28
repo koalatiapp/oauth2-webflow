@@ -37,7 +37,7 @@ class Webflow extends AbstractProvider
 	public const OAUTH_BASE_URI = 'https://api.webflow.com';
 
 	/**
-	 * Webflow only supports the Authorization Code flow ype.
+	 * Webflow only supports the Authorization Code flow type.
 	 *
 	 * @see https://developers.webflow.com/docs/oauth
 	 */
