@@ -10,6 +10,7 @@ use Koalati\OAuth2\Client\Provider\Webflow;
 use League\OAuth2\Client\Token\AccessToken;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class WebflowTest extends \PHPUnit\Framework\TestCase
 {
@@ -61,7 +62,10 @@ class WebflowTest extends \PHPUnit\Framework\TestCase
 	{
 		/** @var MockObject|ResponseInterface $response */
 		$response = $this->createMock(ResponseInterface::class);
-		$response->expects($this->once())->method('getBody')->willReturn('{"access_token":"mock_access_token", "token_type":"bearer"}');
+		/** @var MockObject|StreamInterface $responseBody */
+		$responseBody = $this->createMock(StreamInterface::class);
+		$responseBody->expects($this->once())->method('__toString')->willReturn('{"access_token":"mock_access_token", "token_type":"bearer"}');
+		$response->expects($this->once())->method('getBody')->willReturn($responseBody);
 		$response->expects($this->once())->method('getHeader')->willReturn([
 			'content-type' => 'json',
 		]);
@@ -85,7 +89,10 @@ class WebflowTest extends \PHPUnit\Framework\TestCase
 	{
 		/** @var MockObject|ResponseInterface $response */
 		$response = $this->createMock(ResponseInterface::class);
-		$response->method('getBody')->willReturn('{"error":"invalid_grant"}');
+		/** @var MockObject|StreamInterface $responseBody */
+		$responseBody = $this->createMock(StreamInterface::class);
+		$responseBody->method('__toString')->willReturn('{"error":"invalid_grant"}');
+		$response->method('getBody')->willReturn($responseBody);
 		$response->method('getHeader')->willReturn([
 			'content-type' => 'json',
 		]);
